@@ -12,8 +12,6 @@ date = DateBuilder.getCustomMonthDate("2022-12-31", 12)
 print(date, end='\n')
 
 print("****************************************************")
-print("****************************************************")
-
 
 
 date = DateBuilder.getCustomDate("2022-12-09", 2)
