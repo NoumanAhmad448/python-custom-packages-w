@@ -16,3 +16,18 @@ getCustomDate(date_format: str, days: int): str
 
 @return string <br/>
 @author Nouman Ahmad
+
+*******************************
+## getCustomMonthDate
+ @description <br/>
+ getCustomMonthDate gives you next or previous date depending 
+ upon the number of months you provide 
+
+@examples <br/>
+- getCustomMonthDate("year-month-date",2) returns date that comes after
+two month in the format "year-month-date"
+
+- getCustomMonthDate("year-month-date",-2) returns date that comes before
+two month in the format "year-month-date"
+
+@return string <br/>
