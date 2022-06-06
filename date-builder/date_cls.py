@@ -2,6 +2,8 @@ from datetime import date, timedelta
 
 
 class DateBuilder:
+    days = {6: 'Sunday', 0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday",
+            5: "Saturday"}
     """** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
     *
     * @ description
@@ -100,3 +102,25 @@ class DateBuilder:
 
         except ValueError:
             raise Exception("date must be in the yy-mm-dd format")
+
+
+    """
+    /****************************************************************
+     *
+     * @description
+     * getDay  uses to get the day name in english format
+     *
+     * @examples
+     * getDay ("year-month-day")
+     * 
+     *
+     * @return String
+     ***************************************************************/
+    """
+    @staticmethod
+    def getDay(given_date_format):
+        try:
+            given_date = date.fromisoformat(given_date_format)
+            return DateBuilder.days.get(given_date.weekday())
+        except ValueError:
+            raise Exception("date format is not correct")

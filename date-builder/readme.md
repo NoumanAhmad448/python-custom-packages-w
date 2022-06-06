@@ -3,6 +3,7 @@ This class gives you opportunity to use multiple operation related to date with 
 or past dates, getting number of years b/w two days etc
 
 ## getCustomDate
+##### static method
  @ description <br/>
  getCustomDate gives you next or previous date depending upon the
  number of days your want
@@ -19,6 +20,7 @@ getCustomDate(date_format: str, days: int): str
 
 *******************************
 ## getCustomMonthDate
+##### static method
  @description <br/>
  getCustomMonthDate gives you next or previous date depending 
  upon the number of months you provide 
@@ -31,3 +33,14 @@ two month in the format "year-month-date"
 two month in the format "year-month-date"
 
 @return string <br/>
+
+## getDay
+##### static method
+ @description
+ getDay uses to get the day name in english format
+
+ @examples
+ - getDay ("2020-06-06") => Monday
+ - getDay ("2020-06-07") => Tuesday
+
+ @return String
