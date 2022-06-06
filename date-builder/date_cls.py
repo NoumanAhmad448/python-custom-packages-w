@@ -17,7 +17,7 @@ class DateBuilder:
     * getCustomDate("year-month-date",-2) returns date that comes before
     * two days in the format "year-month-date"
     *
-    * @return string
+    * @return date
     * @author Nouman Ahmad
     *
     ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** * """
@@ -31,6 +31,7 @@ class DateBuilder:
             raise Exception('days must be in integer format')
 
         try:
+            date_format = DateBuilder.makeDateFormatValid(date_format)
             given_date = date.fromisoformat(date_format)
             new_date = timedelta(days=days)
             return given_date + new_date
@@ -50,7 +51,7 @@ class DateBuilder:
      * getCustomMonthDate("year-month-date",-2) returns date that comes before
      * two month in the format "year-month-date"
      * 
-     * @return string
+     * @return date
      * 
     """
 
@@ -62,6 +63,7 @@ class DateBuilder:
         if not isinstance(months, int):
             raise Exception('months must be in integer format')
         try:
+            date_format = DateBuilder.makeDateFormatValid(date_format)
             given_date = date.fromisoformat(date_format)
             day = given_date.day
             month = given_date.month
@@ -114,13 +116,77 @@ class DateBuilder:
      * getDay ("year-month-day")
      * 
      *
-     * @return String
+     * @return date
      ***************************************************************/
     """
     @staticmethod
     def getDay(given_date_format):
         try:
+            date_format = DateBuilder.makeDateFormatValid(given_date_format)
             given_date = date.fromisoformat(given_date_format)
             return DateBuilder.days.get(given_date.weekday())
         except ValueError:
             raise Exception("date format is not correct")
+
+    """** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+    @description
+    weekStartDate gives you week start date w.r.t. provided date
+    
+    @note 
+    week starts from monday
+
+    @examples
+    weekStartDate("2020-06-08") => "2020-06-06"
+ 
+    @return date
+    ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** * """
+
+    @staticmethod
+    def weekStartDate(date_format):
+        try:
+            date_format = DateBuilder.makeDateFormatValid(date_format)
+            w_day = date.fromisoformat(date_format).weekday()
+
+            y_m_d = date_format.split("-")
+            current_day = int(y_m_d[2])
+            actual_day = str(current_day - w_day)
+
+            if len(actual_day):
+                actual_day = "0" + actual_day
+            y_m_d[2] = actual_day
+
+            return date.fromisoformat(date_format) if w_day == 0 else date.fromisoformat("-".join(y_m_d))
+        except ValueError:
+            raise Exception("date must be in format y-m-d")
+
+    @staticmethod
+    def makeDateFormatValid(date_format):
+        try:
+            year, month, day = date_format.split("-")
+            if len(month) == 1:
+                month = "0" + month
+            if len(day) == 1:
+                day = "0" + day
+            return year + "-" + month + "-" + day
+        except ValueError:
+            raise Exception
+
+    """
+    @description
+    weekEndDate will give you week day date w.r.t. given date
+    e.g. given date 2020-6-6 will return 2020-6-12
+    
+    @example 
+    weekEndDate("2020-6-6") => "2020-6-12"
+    
+    @return date 
+    """
+
+    @staticmethod
+    def weekEndDate(date_format):
+        date_format = DateBuilder.makeDateFormatValid(date_format)
+        w_day = date.fromisoformat(date_format).weekday()
+        if w_day == 6:
+            return date.fromisoformat(date_format)
+        w_day = 6 - w_day
+        return date.fromisoformat(date_format) + timedelta(days=w_day)

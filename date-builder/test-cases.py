@@ -1,7 +1,12 @@
 from date_cls import DateBuilder
 
 
+date = DateBuilder.weekEndDate("2022-6-6")
+print(date)
 
+
+
+print(type(DateBuilder.weekStartDate("2022-06-08")))
 
 print("********************new testing")
 date = DateBuilder.getDay("2022-06-06")
@@ -19,6 +24,12 @@ date = DateBuilder.getDay("2022-06-11")
 print(date)
 date = DateBuilder.getDay("2022-06-12")
 print(date)
+
+
+
+
+
+
 
 
 
